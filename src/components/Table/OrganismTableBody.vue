@@ -1,6 +1,6 @@
 <template>
   <tbody>
-    <MoleculeTableRow v-for="item in data" :key="item" type="AtomTableData" :data="item" />
+    <MoleculeTableRow v-for="(item, index) in data" :key="index" type="AtomTableData" :data="item" />
   </tbody>
 </template>
 

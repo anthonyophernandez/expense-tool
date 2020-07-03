@@ -1,5 +1,5 @@
 <template>
-  <tr>
+  <tr class="bg-blue-100 hover:bg-blue-200 border-b border-blue-200 hover:border-blue-300">
     <component :is="type" v-for="tcell in data" :key="tcell" :data="tcell"></component>
   </tr>
 </template>
