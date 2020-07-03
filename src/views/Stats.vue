@@ -1,24 +1,24 @@
 <template>
-  <section class="w-full p-4">
+  <section class="w-full px-16 py-4">
 
-    <OrganismGrid :cards="cards" />
-    <div class="flex flex-wrap items-stretch">
-      <OrganismTable class="w-full min-h-full lg:w-1/2" :table="table"/>
-      <BarChart class="w-full min-h-full lg:w-1/2" :options="barChart.options" :chart-data="barChart.chartData"/>
-    </div>
+    <OrganismStatsCards :cards="cards" />
+
+    <OrganismTableAndChart class="border border-blue-300 mb-1 h-64" :table="tableExpenses" chartType="BarChart" :chart="barChart" />
+
+    <OrganismTableAndChart class="border border-blue-300 mb-1 h-64" :table="tableCategory" chartType="PieChart" :chart="pieChart" />
+
+    <OrganismTableAndChart class="border border-blue-300 mb-1  h-64" :table="tableTypes" chartType="DoughnutChart" :chart="doughnutChart" />
   </section>
 </template>
 
 <script>
-import OrganismGrid from '../components/OrganismGrid.vue'
-import OrganismTable from '../components/Table/OrganismTable.vue'
-import BarChart from '../components/BarChart.vue'
+import OrganismStatsCards from '../components/OrganismStatsCards.vue'
+import OrganismTableAndChart from '../components/OrganismTableAndChart.vue'
 export default {
   name: 'Stats',
   components: {
-    OrganismGrid,
-    OrganismTable,
-    BarChart
+    OrganismStatsCards,
+    OrganismTableAndChart
   },
   data: () => {
     return {
@@ -40,7 +40,7 @@ export default {
           text: '€ 15.233,85'
         }
       ],
-      table: {
+      tableExpenses: {
         headers: ['Category', 'Type', 'Date', 'Value'],
         data: [
           {
@@ -79,6 +79,9 @@ export default {
         options: {
           responsive: true,
           maintainAspectRatio: false,
+          legend: {
+            display: true
+          },
           scales: {
             yAxes: [{
               stacked: true,
@@ -93,13 +96,85 @@ export default {
           }
         },
         chartData: {}
+      },
+      tableCategory: {
+        headers: ['Category', 'Budget', 'Spent'],
+        data: [
+          {
+            category: 'Utilities',
+            budget: '24000',
+            spent: '€ 3133.55'
+          },
+          {
+            category: 'Shopping',
+            budget: '12000',
+            spent: '€ 4199.16'
+          }, {
+            category: 'Travel',
+            budget: '36000',
+            spent: '€ 5630.95'
+          },
+          {
+            category: 'Misc',
+            budget: '12000',
+            spent: '€ 3127.80'
+          },
+          {
+            category: 'General Expenses',
+            budget: '30000',
+            spent: '€ 2963.03'
+          }
+        ]
+      },
+      pieChart: {
+        isLoaded: false,
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          legend: {
+            display: true
+          }
+        },
+        chartData: {}
+      },
+      tableTypes: {
+        headers: ['Type', 'Spent'],
+        data: [
+          {
+            Type: 'Cash',
+            spent: '€ 3755.16'
+          },
+          {
+            Type: 'Cheque',
+            spent: '€ 3149.83'
+          }, {
+            Type: 'Credit Card',
+            spent: '€ 0.00'
+          },
+          {
+            Type: 'Debit Card',
+            spent: '€ 8328.85'
+          }
+        ]
+      },
+      doughnutChart: {
+        isLoaded: false,
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          legend: {
+            display: true
+          }
+        },
+        chartData: {}
       }
     }
   },
   created () {
+    // BarChart INI
     this.barChart.isLoaded = false
 
-    const chartData = {
+    const barChartData = {
       labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
       datasets: [
         {
@@ -120,9 +195,57 @@ export default {
       ]
     }
 
-    this.barChart.chartData = chartData
+    this.barChart.chartData = barChartData
 
     this.barChart.isLoaded = true
+    // BarChart END
+
+    // PieChart INI
+    this.pieChart.isLoaded = false
+
+    const pieChartData = {
+      labels: ['Utilities', 'General Expenses', 'Misc', 'Shopping', 'Travel'],
+      datasets: [
+        {
+          backgroundColor: [
+            'rgba(162, 222, 150, 0.7)',
+            'rgba(54, 162, 235, 0.7)',
+            'rgba(255, 206, 86, 0.7)',
+            'rgba(75, 192, 192, 0.7)',
+            'rgba(255, 99, 132, 0.7)'
+          ],
+          data: [3133.55, 2963.03, 3127.80, 4199.16, 5630.95]
+        }
+      ]
+    }
+
+    this.pieChart.chartData = pieChartData
+
+    this.pieChart.isLoaded = true
+    // PieChart END
+
+    // DoughnutChart INI
+    this.doughnutChart.isLoaded = false
+
+    const doughnutChartData = {
+      labels: ['Cash', 'Cheque', 'Credit Card', 'Debit Card'],
+      datasets: [
+        {
+          backgroundColor: [
+            'rgba(162, 222, 150, 0.7)',
+            'rgba(54, 162, 235, 0.7)',
+            'rgba(255, 206, 86, 0.7)',
+            'rgba(75, 192, 192, 0.7)'
+          ],
+          data: [3755.16, 3149.83, 0.00, 8328.85]
+        }
+      ]
+    }
+
+    this.doughnutChart.chartData = doughnutChartData
+
+    this.doughnutChart.isLoaded = true
+    // DoughnutChart END
   }
 }
 </script>
