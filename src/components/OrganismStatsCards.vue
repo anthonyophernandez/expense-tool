@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import MoleculeCard from '../components/MoleculeCard.vue'
+import MoleculeCard from './MoleculeCard.vue'
 
 export default {
   name: 'OrganismGrid',

@@ -5,9 +5,15 @@ export default {
   name: 'DoughnutChart',
   mixins: [reactiveProp],
   extends: Doughnut,
-  props: {
-    options: {
-      type: Object
+  data: () => {
+    return {
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        legend: {
+          display: true
+        }
+      }
     }
   },
   mounted () {

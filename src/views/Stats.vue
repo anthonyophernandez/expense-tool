@@ -1,13 +1,13 @@
 <template>
-  <section class="w-full px-16 py-4">
+  <section class="w-full px-0 py-1 sm:px-16 sm:py-4">
 
     <OrganismStatsCards :cards="cards" />
 
-    <OrganismTableAndChart class="border border-blue-300 mb-1 h-64" :table="tableExpenses" chartType="BarChart" :chart="barChart" />
+    <OrganismTableAndChart class="border border-blue-300 mb-1 h-64" title="Expenses Breakdown" :table="tableExpenses" chartType="BarChart" :chart="barChart" />
 
-    <OrganismTableAndChart class="border border-blue-300 mb-1 h-64" :table="tableCategory" chartType="PieChart" :chart="pieChart" />
+    <OrganismTableAndChart class="border border-blue-300 mb-1 h-64" title="Category Breakdown" :table="tableCategory" chartType="PieChart" :chart="pieChart" />
 
-    <OrganismTableAndChart class="border border-blue-300 mb-1  h-64" :table="tableTypes" chartType="DoughnutChart" :chart="doughnutChart" />
+    <OrganismTableAndChart class="border border-blue-300 mb-1  h-64" title="Types Breakdown" :table="tableTypes" chartType="DoughnutChart" :chart="doughnutChart" />
   </section>
 </template>
 
@@ -76,25 +76,6 @@ export default {
       },
       barChart: {
         isLoaded: false,
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          legend: {
-            display: true
-          },
-          scales: {
-            yAxes: [{
-              stacked: true,
-              ticks: {
-                beginAtZero: true,
-                min: 0
-              }
-            }],
-            xAxes: [{
-              stacked: true
-            }]
-          }
-        },
         chartData: {}
       },
       tableCategory: {
@@ -128,44 +109,30 @@ export default {
       },
       pieChart: {
         isLoaded: false,
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          legend: {
-            display: true
-          }
-        },
         chartData: {}
       },
       tableTypes: {
         headers: ['Type', 'Spent'],
         data: [
           {
-            Type: 'Cash',
+            type: 'Cash',
             spent: '€ 3755.16'
           },
           {
-            Type: 'Cheque',
+            type: 'Cheque',
             spent: '€ 3149.83'
           }, {
-            Type: 'Credit Card',
+            type: 'Credit Card',
             spent: '€ 0.00'
           },
           {
-            Type: 'Debit Card',
+            type: 'Debit Card',
             spent: '€ 8328.85'
           }
         ]
       },
       doughnutChart: {
         isLoaded: false,
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          legend: {
-            display: true
-          }
-        },
         chartData: {}
       }
     }

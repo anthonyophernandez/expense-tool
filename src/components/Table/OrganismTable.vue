@@ -1,5 +1,5 @@
 <template>
-  <table class="table-auto">
+  <table class="table-fixed">
     <OrganismTableHead :headers="table.headers" />
     <OrganismTableBody :data="table.data" />
   </table>

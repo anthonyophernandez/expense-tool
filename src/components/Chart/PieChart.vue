@@ -5,9 +5,15 @@ export default {
   name: 'PieChart',
   mixins: [reactiveProp],
   extends: Pie,
-  props: {
-    options: {
-      type: Object
+  data: () => {
+    return {
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        legend: {
+          display: true
+        }
+      }
     }
   },
   mounted () {
