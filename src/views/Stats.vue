@@ -3,11 +3,12 @@
 
     <OrganismStatsCards :cards="cards" />
 
-    <OrganismTableAndChart class="border border-blue-300 mb-1 h-64" title="Expenses Breakdown" :table="tableExpenses" chartType="BarChart" :chart="barChart" />
+    <OrganismTableAndChart class="border border-blue-300 mb-1 h-64" title="Expenses Breakdown" :table="tableExpenses" chartType="BarChart" :chart="barChart" :byYear="byYear"/>
 
-    <OrganismTableAndChart class="border border-blue-300 mb-1 h-64" title="Category Breakdown" :table="tableCategory" chartType="PieChart" :chart="pieChart" />
+    <OrganismTableAndChart class="border border-blue-300 mb-1 h-64" title="Category Breakdown" :table="tableCategory" chartType="PieChart" :chart="pieChart" :byYear="byYear" :byMonth="byMonth"/>
 
-    <OrganismTableAndChart class="border border-blue-300 mb-1  h-64" title="Types Breakdown" :table="tableTypes" chartType="DoughnutChart" :chart="doughnutChart" />
+    <OrganismTableAndChart class="border border-blue-300 mb-1  h-64" title="Types Breakdown" :table="tableTypes" chartType="DoughnutChart" :chart="doughnutChart" :byYear="byYear" :byMonth="byMonth"/>
+
   </section>
 </template>
 
@@ -134,6 +135,14 @@ export default {
       doughnutChart: {
         isLoaded: false,
         chartData: {}
+      },
+      byYear: {
+        label: 'Year',
+        data: ['2018', '2019']
+      },
+      byMonth: {
+        label: 'Month',
+        data: ['All', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
       }
     }
   },

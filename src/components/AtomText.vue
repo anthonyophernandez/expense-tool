@@ -1,5 +1,5 @@
 <template>
-  <p class="pb-6">{{ text }}</p>
+  <p>{{ text }}</p>
 </template>
 
 <script>
