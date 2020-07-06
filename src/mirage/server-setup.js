@@ -4,7 +4,7 @@ import typesJSON from './types.json'
 export default function () {
   const server = new Server()
 
-  server.namespace('api')
+  server.namespace = 'api'
 
   server.get('/types', ({ db }, request) => db.types)
 
