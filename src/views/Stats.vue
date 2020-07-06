@@ -1,13 +1,13 @@
 <template>
-  <section class="w-full px-0 py-1 sm:px-16 sm:py-4">
+  <section class="w-full px-1 py-1 sm:px-16 sm:py-4">
 
     <OrganismStatsCards :cards="cards" />
 
-    <OrganismTableAndChart class="border border-blue-300 mb-1 h-64" title="Expenses Breakdown" :table="tableExpenses" chartType="BarChart" :chart="barChart" :byYear="byYear"/>
+    <OrganismTableAndChart title="Expenses Breakdown" :table="tableExpenses" chartType="BarChart" :chart="barChart" :byYear="byYear"/>
 
-    <OrganismTableAndChart class="border border-blue-300 mb-1 h-64" title="Category Breakdown" :table="tableCategory" chartType="PieChart" :chart="pieChart" :byYear="byYear" :byMonth="byMonth"/>
+    <OrganismTableAndChart title="Category Breakdown" :table="tableCategory" chartType="PieChart" :chart="pieChart" :byYear="byYear" :byMonth="byMonth"/>
 
-    <OrganismTableAndChart class="border border-blue-300 mb-1  h-64" title="Types Breakdown" :table="tableTypes" chartType="DoughnutChart" :chart="doughnutChart" :byYear="byYear" :byMonth="byMonth"/>
+    <OrganismTableAndChart title="Types Breakdown" :table="tableTypes" chartType="DoughnutChart" :chart="doughnutChart" :byYear="byYear" :byMonth="byMonth"/>
 
   </section>
 </template>

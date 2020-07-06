@@ -1,5 +1,5 @@
 <template>
-  <td class="text-blue-800 px-4 py-2">{{ data }}</td>
+  <td class="text-xs font-serif px-4 py-1">{{ data }}</td>
 </template>
 
 <script>

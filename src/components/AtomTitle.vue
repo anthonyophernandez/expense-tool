@@ -1,5 +1,5 @@
 <template>
-  <component :is="tag" class="text-3xl font-serif pb-2">{{ content }}</component>
+  <component :is="tag" class="font-serif">{{ content }}</component>
 </template>
 
 <script>

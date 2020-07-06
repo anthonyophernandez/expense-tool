@@ -1,5 +1,5 @@
 <template>
-  <button class="h-8 w-10">{{ content }}</button>
+  <button class="text-gray-500 h-8 w-10">{{ content }}</button>
 </template>
 
 <script>
