@@ -1,0 +1,94 @@
+[
+  {
+    "id": "1",
+    "name": "Cash",
+    "description": "",
+    "color": "rgba(66, 135, 245, 0.7)",
+    "spent": {
+      "2020": {
+        "All": "3755.16",
+        "January": "0.00",
+        "February": "495.32",
+        "March": "0.00",
+        "April": "701.52",
+        "May": "69.87",
+        "June": "1236.06",
+        "July": "0.00",
+        "August": "0.00",
+        "September": "0.00",
+        "October": "318.81",
+        "November": "0.00",
+        "December": "933.58"
+      }
+    }
+  },
+  {
+    "id": "2",
+    "name": "Cheque",
+    "description": "",
+    "color": "rgba(64, 245, 242, 0.7)",
+    "spent": {
+      "2020": {
+        "All": "3149.83",
+        "January": "871.08",
+        "February": "47.37",
+        "March": "376.46",
+        "April": "57.77",
+        "May": "911.83",
+        "June": "0.00",
+        "July": "0.00",
+        "August": "521.66",
+        "September": "0.00",
+        "October": "0.00",
+        "November": "363.66",
+        "December": "0.00"
+      }
+    }
+  },
+  {
+    "id": "3",
+    "name": "Credit Card",
+    "description": "",
+    "color": "rgba(61, 245, 92, 0.7)",
+    "spent": {
+      "2020": {
+        "All": "0.00",
+        "January": "0.00",
+        "February": "0.00",
+        "March": "0.00",
+        "April": "0.00",
+        "May": "0.00",
+        "June": "0.00",
+        "July": "0.00",
+        "August": "0.00",
+        "September": "0.00",
+        "October": "0.00",
+        "November": "0.00",
+        "December": "0.00"
+      }
+    }
+  },
+  {
+    "id": "4",
+    "name": "Debit Card",
+    "description": "",
+    "color": "rgba(245, 162, 61, 0.7)",
+    "spent": {
+      "2020": {
+        "All": "8328.85",
+        "January": "271.19",
+        "February": "0.00",
+        "March": "717.15",
+        "April": "0.00",
+        "May": "0.00",
+        "June": "643.80",
+        "July": "2650.02",
+        "August": "597.19",
+        "September": "987.74",
+        "October": "1001.13",
+        "November": "1460.65",
+        "December": "0.00"
+      }
+    }
+  }
+]
