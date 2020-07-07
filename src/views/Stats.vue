@@ -2,11 +2,11 @@
   <section class="w-full px-1 py-1 sm:px-16 sm:py-4">
 
     <OrganismStatsCards :cards="cards" />
-
+    <!--
     <OrganismTableAndChart title="Expenses Breakdown" :table="tableExpenses" chartType="BarChart" :chart="barChart" :byYear="byYear"/>
 
     <OrganismTableAndChart title="Category Breakdown" :table="tableCategory" chartType="PieChart" :chart="pieChart" :byYear="byYear" :byMonth="byMonth"/>
-
+    -->
     <OrganismTableAndChart title="Types Breakdown" :table="tableTypes" chartType="DoughnutChart" :chart="doughnutChart" :byYear="byYear" :byMonth="byMonth"/>
 
   </section>
@@ -131,8 +131,8 @@ export default {
       }
     }
   },
-  created () {
-    this.$store.dispatch('loadTypes')
+  async created () {
+    await this.$store.dispatch('loadTypes')
 
     // BarChart INI
     this.barChart.isLoaded = false

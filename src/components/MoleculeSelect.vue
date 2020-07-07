@@ -1,7 +1,7 @@
 <template>
-  <div class="w-16">
+  <div class="w-24">
     <AtomText class="text-xs text-gray-600" :text="label" />
-    <select class="block bg-transparent w-full h-6 text-sm">
+    <select v-model="selectedOption" class="block bg-transparent w-full h-6 text-sm">
       <option v-for="(option, index) in options" :key="index">{{ option }}</option>
     </select>
   </div>
@@ -14,6 +14,17 @@ export default {
   props: ['label', 'options'],
   components: {
     AtomText
+  },
+  data () {
+    return {
+      selectedOption: ''
+    }
+  },
+  mounted () {
+    this.selectedOption = this.options[0]
+  },
+  updated () {
+    this.$emit('selected', { label: this.label, option: this.selectedOption })
   }
 }
 </script>
