@@ -17,7 +17,7 @@
         </div>
 
         <div class="flex items-center border-t border-blue-200 justify-end">
-          <AtomText class="text-xs mr-2" text="1-5 of 5"/>
+          <AtomText class="text-xs mr-2" :text="textNumOfData"/>
           <AtomButton class="rounded-l" content="<" />
           <AtomButton class="rounded-r" content=">" />
         </div>
@@ -52,6 +52,15 @@ export default {
     BarChart,
     PieChart,
     DoughnutChart
+  },
+  computed: {
+    textNumOfData () {
+      if (this.table.data.length > 0) {
+        return '1 of ' + this.table.data.length
+      } else {
+        return '-'
+      }
+    }
   }
 }
 </script>

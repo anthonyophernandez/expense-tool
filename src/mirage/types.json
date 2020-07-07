@@ -1,7 +1,7 @@
 [
   {
     "id": "1",
-    "name": "Cash",
+    "type": "Cash",
     "description": "",
     "color": "rgba(66, 135, 245, 0.7)",
     "spent": {
@@ -24,7 +24,7 @@
   },
   {
     "id": "2",
-    "name": "Cheque",
+    "type": "Cheque",
     "description": "",
     "color": "rgba(64, 245, 242, 0.7)",
     "spent": {
@@ -47,7 +47,7 @@
   },
   {
     "id": "3",
-    "name": "Credit Card",
+    "type": "Credit Card",
     "description": "",
     "color": "rgba(61, 245, 92, 0.7)",
     "spent": {
@@ -70,7 +70,7 @@
   },
   {
     "id": "4",
-    "name": "Debit Card",
+    "type": "Debit Card",
     "description": "",
     "color": "rgba(245, 162, 61, 0.7)",
     "spent": {

@@ -13,6 +13,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import OrganismStatsCards from '../components/OrganismStatsCards.vue'
 import OrganismTableAndChart from '../components/OrganismTableAndChart.vue'
 export default {
@@ -114,23 +115,7 @@ export default {
       },
       tableTypes: {
         headers: ['Type', 'Spent'],
-        data: [
-          {
-            type: 'Cash',
-            spent: '€ 3755.16'
-          },
-          {
-            type: 'Cheque',
-            spent: '€ 3149.83'
-          }, {
-            type: 'Credit Card',
-            spent: '€ 0.00'
-          },
-          {
-            type: 'Debit Card',
-            spent: '€ 8328.85'
-          }
-        ]
+        data: []
       },
       doughnutChart: {
         isLoaded: false,
@@ -138,7 +123,7 @@ export default {
       },
       byYear: {
         label: 'Year',
-        data: ['2018', '2019']
+        data: ['2020']
       },
       byMonth: {
         label: 'Month',
@@ -147,6 +132,8 @@ export default {
     }
   },
   created () {
+    this.$store.dispatch('loadTypes')
+
     // BarChart INI
     this.barChart.isLoaded = false
 
@@ -204,16 +191,11 @@ export default {
     this.doughnutChart.isLoaded = false
 
     const doughnutChartData = {
-      labels: ['Cash', 'Cheque', 'Credit Card', 'Debit Card'],
+      labels: this.types.map(t => t.type),
       datasets: [
         {
-          backgroundColor: [
-            'rgba(162, 222, 150, 0.7)',
-            'rgba(54, 162, 235, 0.7)',
-            'rgba(255, 206, 86, 0.7)',
-            'rgba(75, 192, 192, 0.7)'
-          ],
-          data: [3755.16, 3149.83, 0.00, 8328.85]
+          backgroundColor: this.types.map(t => t.color),
+          data: this.types.map(t => t.spent['2020'].All)
         }
       ]
     }
@@ -221,7 +203,20 @@ export default {
     this.doughnutChart.chartData = doughnutChartData
 
     this.doughnutChart.isLoaded = true
+
+    this.tableTypes.data = this.types.map(t => {
+      const el = {
+        type: t.type,
+        spent: t.spent['2020'].All
+      }
+      return el
+    })
     // DoughnutChart END
+  },
+  computed: {
+    ...mapState({
+      types: state => state.types
+    })
   }
 }
 </script>
