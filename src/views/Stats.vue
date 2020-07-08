@@ -3,22 +3,41 @@
 
     <OrganismStatsCards :cards="cards" />
     <!--
-    <OrganismTableAndChart title="Expenses Breakdown" :table="tableExpenses" chartType="BarChart" :chart="barChart" :byYear="byYear"/>
+    <OrganismTableAndChart :table="tableExpenses" chartType="BarChart" :chart="barChart"/>
 
-    <OrganismTableAndChart title="Category Breakdown" :table="tableCategory" chartType="PieChart" :chart="pieChart" :byYear="byYear" :byMonth="byMonth"/>
+    <OrganismTableAndChart :table="tableCategory" chartType="PieChart" :chart="pieChart"/>
     -->
-    <OrganismTableAndChart title="Types Breakdown" :table="tableTypes" chartType="DoughnutChart" :chart="doughnutChart" :byYear="byYear" :byMonth="byMonth"/>
+
+    <section class="flex flex-col w-full h-full border border-blue-200 rounded-sm bg-blue-100 p-1 mb-4">
+
+      <div class="px-4 pb-2 mb-4 w-full border-b border-blue-200 flex items-end">
+        <AtomTitle class="text-lg text-blue-500 pt-2 pb-1 mr-2" tag="h3" content="Types Breakdown"/>
+        <div class="pt-2 pb-1 flex">
+          <MoleculeSelect class="mr-2" :label="byYear.label" :options="byYear.data" @selected="selectedYear"/>
+          <MoleculeSelect v-if="byMonth" :label="byMonth.label" :options="byMonth.data" @selected="selectedMonth"/>
+        </div>
+      </div>
+
+      <OrganismTableAndChart :table="tableTypes" chartType="DoughnutChart" :chart="doughnutChart"/>
+
+    </section>
 
   </section>
 </template>
 
 <script>
 import { mapState } from 'vuex'
+
+import AtomTitle from '../components/AtomTitle.vue'
+import MoleculeSelect from '../components/MoleculeSelect.vue'
+
 import OrganismStatsCards from '../components/OrganismStatsCards.vue'
 import OrganismTableAndChart from '../components/OrganismTableAndChart.vue'
 export default {
   name: 'Stats',
   components: {
+    AtomTitle,
+    MoleculeSelect,
     OrganismStatsCards,
     OrganismTableAndChart
   },
@@ -123,11 +142,13 @@ export default {
       },
       byYear: {
         label: 'Year',
-        data: ['2020']
+        data: ['2020'],
+        selected: '2020'
       },
       byMonth: {
         label: 'Month',
-        data: ['All', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        data: ['All', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+        selected: 'All'
       }
     }
   },
@@ -188,35 +209,48 @@ export default {
     // PieChart END
 
     // DoughnutChart INI
-    this.doughnutChart.isLoaded = false
-
-    const doughnutChartData = {
-      labels: this.types.map(t => t.type),
-      datasets: [
-        {
-          backgroundColor: this.types.map(t => t.color),
-          data: this.types.map(t => t.spent['2020'].All)
-        }
-      ]
-    }
-
-    this.doughnutChart.chartData = doughnutChartData
-
-    this.doughnutChart.isLoaded = true
-
-    this.tableTypes.data = this.types.map(t => {
-      const el = {
-        type: t.type,
-        spent: t.spent['2020'].All
-      }
-      return el
-    })
+    this.setDoughnutChartData()
     // DoughnutChart END
   },
   computed: {
     ...mapState({
       types: state => state.types
     })
+  },
+  methods: {
+    selectedYear (obj) {
+      this.byYear.selected = obj.option
+      this.setDoughnutChartData()
+    },
+    selectedMonth (obj) {
+      this.byMonth.selected = obj.option
+      this.setDoughnutChartData()
+    },
+    setDoughnutChartData () {
+      this.doughnutChart.isLoaded = false
+
+      const doughnutChartData = {
+        labels: this.types.map(t => t.type),
+        datasets: [
+          {
+            backgroundColor: this.types.map(t => t.color),
+            data: this.types.map(t => t.spent[this.byYear.selected][this.byMonth.selected])
+          }
+        ]
+      }
+
+      this.doughnutChart.chartData = doughnutChartData
+
+      this.doughnutChart.isLoaded = true
+
+      this.tableTypes.data = this.types.map(t => {
+        const el = {
+          type: t.type,
+          spent: t.spent[this.byYear.selected][this.byMonth.selected]
+        }
+        return el
+      })
+    }
   }
 }
 </script>

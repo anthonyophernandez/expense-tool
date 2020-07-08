@@ -20,11 +20,11 @@ export default {
       selectedOption: ''
     }
   },
-  mounted () {
+  created () {
     this.selectedOption = this.options[0]
   },
   updated () {
-    this.$emit('selected', { label: this.label, option: this.selectedOption })
+    this.$emit('selected', { option: this.selectedOption })
   }
 }
 </script>

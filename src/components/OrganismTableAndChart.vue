@@ -1,18 +1,8 @@
 <template>
-  <section class="flex flex-col w-full h-full border border-blue-200 rounded-sm bg-blue-100 p-1 mb-4">
-
-    <div class="px-4 pb-2 mb-4 w-full border-b border-blue-200 flex items-end">
-      <AtomTitle class="text-lg text-blue-500 pt-2 pb-1 mr-2" tag="h3" :content="title"/>
-      <div class="pt-2 pb-1 flex">
-        <MoleculeSelect class="mr-2" :label="byYear.label" :options="byYear.data"/>
-        <MoleculeSelect v-if="byMonth" :label="byMonth.label" :options="byMonth.data"/>
-      </div>
-    </div>
-
     <div class="flex flex-wrap items-stretch w-full h-full">
       <div class="w-full lg:w-1/2 min-h-full flex flex-col justify-between">
 
-        <div class="overflow-x-auto h-40 mb-2">
+        <div class="overflow-x-auto h-64 mb-2">
           <OrganismTable class="w-full h-56" :table="table"/>
         </div>
 
@@ -25,14 +15,10 @@
       </div>
       <component :is="chartType" v-if="chart.isLoaded" class="w-full lg:w-1/2 h-64" :options="chart.options" :chart-data="chart.chartData"/>
     </div>
-
-  </section>
 </template>
 
 <script>
-import AtomTitle from './AtomTitle.vue'
 import AtomText from './AtomText.vue'
-import MoleculeSelect from './MoleculeSelect.vue'
 import AtomButton from './AtomButton.vue'
 
 import OrganismTable from './Table/OrganismTable.vue'
@@ -42,12 +28,10 @@ import DoughnutChart from './Chart/DoughnutChart.vue'
 
 export default {
   name: 'OrganismTableAndChart',
-  props: ['title', 'table', 'chartType', 'chart', 'byYear', 'byMonth'],
+  props: ['table', 'chartType', 'chart'],
   components: {
-    AtomTitle,
     AtomText,
     AtomButton,
-    MoleculeSelect,
     OrganismTable,
     BarChart,
     PieChart,
@@ -56,7 +40,7 @@ export default {
   computed: {
     textNumOfData () {
       if (this.table.data.length > 0) {
-        return '1 of ' + this.table.data.length
+        return '1-' + this.table.data.length + ' of ' + this.table.data.length
       } else {
         return '-'
       }
