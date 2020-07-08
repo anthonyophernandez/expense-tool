@@ -7,11 +7,15 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    types: []
+    types: [],
+    categories: []
   },
   mutations: {
     SET_TYPES (state, types) {
       state.types = types
+    },
+    SET_CATEGORIES (state, categories) {
+      state.categories = categories
     }
   },
   actions: {
@@ -19,6 +23,11 @@ export default new Vuex.Store({
       const response = await Api().get('/api/types')
       const types = response.data
       commit('SET_TYPES', types)
+    },
+    async loadCategories ({ commit }) {
+      const response = await Api().get('/api/categories')
+      const categories = response.data
+      commit('SET_CATEGORIES', categories)
     }
   },
   modules: {

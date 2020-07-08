@@ -1,0 +1,122 @@
+[
+  {
+    "id": "1",
+    "category": "General Expenses",
+    "description": "",
+    "color": "rgba(184, 0, 181, 0.7)",
+    "budget": "2000",
+    "spent": {
+      "2020": {
+        "All": "1001.13",
+        "January": "0.00",
+        "February": "0.00",
+        "March": "0.00",
+        "April": "0.00",
+        "May": "0.00",
+        "June": "0.00",
+        "July": "0.00",
+        "August": "0.00",
+        "September": "0.00",
+        "October": "1001.13",
+        "November": "0.00",
+        "December": "0.00"
+      }
+    }
+  },
+  {
+    "id": "2",
+    "category": "Misc",
+    "description": "",
+    "color": "rgba(255, 42, 0, 0.7)",
+    "budget": "1000",
+    "spent": {
+      "2020": {
+        "All": "4834.81",
+        "January": "0.00",
+        "February": "495.32",
+        "March": "0.00",
+        "April": "0.00",
+        "May": "69.87",
+        "June": "1236.06",
+        "July": "1417.50",
+        "August": "0.00",
+        "September": "0.00",
+        "October": "318.81",
+        "November": "363.66",
+        "December": "933.58"
+      }
+    }
+  },
+  {
+    "id": "3",
+    "category": "Shopping",
+    "description": "",
+    "color": "rgba(66, 135, 245, 0.7)",
+    "budget": "3000",
+    "spent": {
+      "2020": {
+        "All": "5131.76",
+        "January": "0.00",
+        "February": "0.00",
+        "March": "717.15",
+        "April": "701.52",
+        "May": "0.00",
+        "June": "0.00",
+        "July": "1232.52",
+        "August": "521.66",
+        "September": "498.26",
+        "October": "0.00",
+        "November": "1460.65",
+        "December": "0.00"
+      }
+    }
+  },
+  {
+    "id": "4",
+    "category": "Travel",
+    "description": "",
+    "color": "rgba(255, 115, 0, 0.7)",
+    "budget": "1000",
+    "spent": {
+      "2020": {
+        "All": "3076.52",
+        "January": "0.00",
+        "February": "0.00",
+        "March": "376.46",
+        "April": "57.77",
+        "May": "911.83",
+        "June": "643.80",
+        "July": "0.00",
+        "August": "597.19",
+        "September": "489.48",
+        "October": "0.00",
+        "November": "0.00",
+        "December": "0.00"
+      }
+    }
+  },
+  {
+    "id": "5",
+    "category": "Utilities",
+    "description": "",
+    "color": "rgba(0, 171, 34, 0.7)",
+    "budget": "2500",
+    "spent": {
+      "2020": {
+        "All": "1189.63",
+        "January": "1142.26",
+        "February": "47.37",
+        "March": "0.00",
+        "April": "0.00",
+        "May": "0.00",
+        "June": "0.00",
+        "July": "0.00",
+        "August": "0.00",
+        "September": "0.00",
+        "October": "0.00",
+        "November": "0.00",
+        "December": "0.00"
+      }
+    }
+  }
+]
