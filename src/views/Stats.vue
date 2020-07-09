@@ -2,9 +2,20 @@
   <section class="w-full px-1 py-1 sm:px-16 sm:py-4">
 
     <OrganismStatsCards :cards="cards" />
+
+    <section class="flex flex-col w-full h-full border border-blue-200 rounded-sm bg-blue-100 p-1 mb-4">
+
+      <div class="px-4 pb-2 mb-4 w-full border-b border-blue-200 flex items-end">
+        <AtomTitle class="text-lg text-blue-500 pt-2 pb-1 mr-2" tag="h3" content="Expenses Breakdown"/>
+        <div class="pt-2 pb-1 flex">
+          <MoleculeSelect class="mr-2" :label="byYear.label" :options="byYear.data" @selected="selectedYear"/>
+        </div>
+      </div>
+
+      <OrganismTableAndChart :table="tableExpenses" chartType="BarChart" :chart="barChart"/>
+
+    </section>
     <!--
-    <OrganismTableAndChart :table="tableExpenses" chartType="BarChart" :chart="barChart"/>
-    -->
     <section class="flex flex-col w-full h-full border border-blue-200 rounded-sm bg-blue-100 p-1 mb-4">
 
       <div class="px-4 pb-2 mb-4 w-full border-b border-blue-200 flex items-end">
@@ -18,7 +29,7 @@
       <OrganismTableAndChart :table="tableCategory" chartType="PieChart" :chart="pieChart"/>
 
     </section>
-    <!--
+
     <section class="flex flex-col w-full h-full border border-blue-200 rounded-sm bg-blue-100 p-1 mb-4">
 
       <div class="px-4 pb-2 mb-4 w-full border-b border-blue-200 flex items-end">
@@ -74,37 +85,7 @@ export default {
       ],
       tableExpenses: {
         headers: ['Category', 'Type', 'Date', 'Value'],
-        data: [
-          {
-            category: 'Utilities',
-            type: 'Debit Card',
-            date: '2020-01-10',
-            value: '€ 271.19'
-          },
-          {
-            category: 'Shopping',
-            type: 'Debit Card',
-            date: '2020-03-15',
-            value: '€ 717.15'
-          }, {
-            category: 'Travel',
-            type: 'Debit Card',
-            date: '2020-06-10',
-            value: '€ 643.80'
-          },
-          {
-            category: 'Misc',
-            type: 'Debit Card',
-            date: '2020-07-08',
-            value: '€ 1417.50'
-          },
-          {
-            category: 'General Expenses',
-            type: 'Debit Card',
-            date: '2020-01-10',
-            value: '€ 1001.13'
-          }
-        ]
+        data: []
       },
       barChart: {
         isLoaded: false,
@@ -141,38 +122,14 @@ export default {
   async created () {
     // await this.$store.dispatch('loadTypes')
     await this.$store.dispatch('loadCategories')
+    await this.$store.dispatch('loadExpenses')
 
     // BarChart INI
-    this.barChart.isLoaded = false
-
-    const barChartData = {
-      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-      datasets: [
-        {
-          label: 'Utilities',
-          backgroundColor: 'rgba(162, 222, 150, 0.7)',
-          data: [271.19, 150.25, 0, 102, 0, 0, 0, 0, 0, 0, 75, 0]
-        },
-        {
-          label: 'Shopping',
-          backgroundColor: 'rgba(250, 22, 22, 0.7)',
-          data: [0, 15, 0, 20, 0, 0, 0, 0, 0, 0, 50, 0]
-        },
-        {
-          label: 'Travel',
-          backgroundColor: 'rgba(75, 192, 192, 0.7)',
-          data: [0, 15, 400, 200, 425, 0, 150, 0, 0, 0, 50, 0]
-        }
-      ]
-    }
-
-    this.barChart.chartData = barChartData
-
-    this.barChart.isLoaded = true
+    this.setBarChartData()
     // BarChart END
 
     // PieChart INI
-    this.setPieChartData()
+    // this.setPieChartData()
     // PieChart END
 
     // DoughnutChart INI
@@ -182,19 +139,20 @@ export default {
   computed: {
     ...mapState({
       types: state => state.types,
-      categories: state => state.categories
+      categories: state => state.categories,
+      expenses: state => state.expenses
     })
   },
   methods: {
     selectedYear (obj) {
       this.byYear.selected = obj.option
       // this.setDoughnutChartData()
-      this.setPieChartData()
+      // this.setPieChartData()
     },
     selectedMonth (obj) {
       this.byMonth.selected = obj.option
       // this.setDoughnutChartData()
-      this.setPieChartData()
+      // this.setPieChartData()
     },
     setPieChartData () {
       this.pieChart.isLoaded = false
@@ -243,6 +201,42 @@ export default {
         const el = {
           type: t.type,
           spent: t.spent[this.byYear.selected][this.byMonth.selected]
+        }
+        return el
+      })
+    },
+    setBarChartData () {
+      const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+      const datasets = this.categories.map(c => {
+        const expenses = this.expenses.filter(e => e.category === c.category)
+        const data = labels.map(month => {
+          const expensesOfMonth = expenses.filter(e => e.date.month === month).map(e => parseFloat(e.value))
+          const sum = expensesOfMonth.reduce((a, b) => a + b, 0)
+          return sum
+        })
+        const el = {
+          label: c.category,
+          backgroundColor: c.color,
+          data: data
+        }
+        return el
+      })
+      this.barChart.isLoaded = false
+
+      const barChartData = {
+        labels: labels,
+        datasets: datasets
+      }
+
+      this.barChart.chartData = barChartData
+
+      this.barChart.isLoaded = true
+      this.tableExpenses.data = this.expenses.map(e => {
+        const el = {
+          category: e.category,
+          type: e.type,
+          date: e.date.date,
+          value: e.value
         }
         return el
       })

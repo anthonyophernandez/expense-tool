@@ -8,7 +8,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     types: [],
-    categories: []
+    categories: [],
+    expenses: []
   },
   mutations: {
     SET_TYPES (state, types) {
@@ -16,6 +17,9 @@ export default new Vuex.Store({
     },
     SET_CATEGORIES (state, categories) {
       state.categories = categories
+    },
+    SET_EXPENSES (state, expenses) {
+      state.expenses = expenses
     }
   },
   actions: {
@@ -28,6 +32,11 @@ export default new Vuex.Store({
       const response = await Api().get('/api/categories')
       const categories = response.data
       commit('SET_CATEGORIES', categories)
+    },
+    async loadExpenses ({ commit }) {
+      const response = await Api().get('/api/expenses')
+      const expenses = response.data
+      commit('SET_EXPENSES', expenses)
     }
   },
   modules: {
