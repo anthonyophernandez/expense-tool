@@ -8,21 +8,21 @@
       <div class="px-4 pb-2 mb-4 w-full border-b border-blue-200 flex items-end">
         <AtomTitle class="text-lg text-blue-500 pt-2 pb-1 mr-2" tag="h3" content="Expenses Breakdown"/>
         <div class="pt-2 pb-1 flex">
-          <MoleculeSelect class="mr-2" :label="byYear.label" :options="byYear.data" @selected="selectedYear"/>
+          <MoleculeSelect class="mr-2" source="Expenses" :label="byYear.label" :options="byYear.data" @selected="selectedYear"/>
         </div>
       </div>
 
       <OrganismTableAndChart :table="tableExpenses" chartType="BarChart" :chart="barChart"/>
 
     </section>
-    <!--
+
     <section class="flex flex-col w-full h-full border border-blue-200 rounded-sm bg-blue-100 p-1 mb-4">
 
       <div class="px-4 pb-2 mb-4 w-full border-b border-blue-200 flex items-end">
         <AtomTitle class="text-lg text-blue-500 pt-2 pb-1 mr-2" tag="h3" content="Category Breakdown"/>
         <div class="pt-2 pb-1 flex">
-          <MoleculeSelect class="mr-2" :label="byYear.label" :options="byYear.data" @selected="selectedYear"/>
-          <MoleculeSelect v-if="byMonth" :label="byMonth.label" :options="byMonth.data" @selected="selectedMonth"/>
+          <MoleculeSelect class="mr-2" source="Categories" :label="byYear.label" :options="byYear.data" @selected="selectedYear"/>
+          <MoleculeSelect v-if="byMonth" source="Categories" :label="byMonth.label" :options="byMonth.data" @selected="selectedMonth"/>
         </div>
       </div>
 
@@ -35,15 +35,15 @@
       <div class="px-4 pb-2 mb-4 w-full border-b border-blue-200 flex items-end">
         <AtomTitle class="text-lg text-blue-500 pt-2 pb-1 mr-2" tag="h3" content="Types Breakdown"/>
         <div class="pt-2 pb-1 flex">
-          <MoleculeSelect class="mr-2" :label="byYear.label" :options="byYear.data" @selected="selectedYear"/>
-          <MoleculeSelect v-if="byMonth" :label="byMonth.label" :options="byMonth.data" @selected="selectedMonth"/>
+          <MoleculeSelect class="mr-2" source="Types" :label="byYear.label" :options="byYear.data" @selected="selectedYear"/>
+          <MoleculeSelect v-if="byMonth" source="Types" :label="byMonth.label" :options="byMonth.data" @selected="selectedMonth"/>
         </div>
       </div>
 
       <OrganismTableAndChart :table="tableTypes" chartType="DoughnutChart" :chart="doughnutChart"/>
 
     </section>
-    -->
+
   </section>
 </template>
 
@@ -120,7 +120,7 @@ export default {
     }
   },
   async created () {
-    // await this.$store.dispatch('loadTypes')
+    await this.$store.dispatch('loadTypes')
     await this.$store.dispatch('loadCategories')
     await this.$store.dispatch('loadExpenses')
 
@@ -129,11 +129,11 @@ export default {
     // BarChart END
 
     // PieChart INI
-    // this.setPieChartData()
+    this.setPieChartData()
     // PieChart END
 
     // DoughnutChart INI
-    // this.setDoughnutChartData()
+    this.setDoughnutChartData()
     // DoughnutChart END
   },
   computed: {
@@ -146,13 +146,21 @@ export default {
   methods: {
     selectedYear (obj) {
       this.byYear.selected = obj.option
-      // this.setDoughnutChartData()
-      // this.setPieChartData()
+      if (obj.source === 'Expenses') {
+        this.setBarChartData()
+      } else if (obj.source === 'Categories') {
+        this.setPieChartData()
+      } else if (obj.source === 'Types') {
+        this.setDoughnutChartData()
+      }
     },
     selectedMonth (obj) {
       this.byMonth.selected = obj.option
-      // this.setDoughnutChartData()
-      // this.setPieChartData()
+      if (obj.source === 'Categories') {
+        this.setPieChartData()
+      } else if (obj.source === 'Types') {
+        this.setDoughnutChartData()
+      }
     },
     setPieChartData () {
       this.pieChart.isLoaded = false

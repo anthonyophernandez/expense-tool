@@ -11,7 +11,7 @@
 import AtomText from './AtomText.vue'
 export default {
   name: 'MoleculeSelect',
-  props: ['label', 'options'],
+  props: ['source', 'label', 'options'],
   components: {
     AtomText
   },
@@ -24,7 +24,7 @@ export default {
     this.selectedOption = this.options[0]
   },
   updated () {
-    this.$emit('selected', { option: this.selectedOption })
+    this.$emit('selected', { option: this.selectedOption, source: this.source })
   }
 }
 </script>
