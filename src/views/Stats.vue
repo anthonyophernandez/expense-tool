@@ -109,20 +109,23 @@ export default {
       },
       byYear: {
         label: 'Year',
-        data: ['2020'],
-        selected: '2020'
+        data: ['2019', '2020']
       },
       byMonth: {
         label: 'Month',
-        data: ['All', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-        selected: 'All'
-      }
+        data: ['All', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+      },
+      yearSelectedForExpenses: '2019',
+      yearSelectedForCategories: '2019',
+      yearSelectedForTypes: '2019',
+      monthSelectedForCategories: 'All',
+      monthSelectedForTypes: 'All'
     }
   },
   async created () {
     await this.$store.dispatch('loadTypes')
     await this.$store.dispatch('loadCategories')
-    await this.$store.dispatch('loadExpenses')
+    await this.$store.dispatch('loadExpenses', { year: this.yearSelectedForExpenses })
 
     // BarChart INI
     this.setBarChartData()
@@ -144,21 +147,25 @@ export default {
     })
   },
   methods: {
-    selectedYear (obj) {
-      this.byYear.selected = obj.option
+    async selectedYear (obj) {
       if (obj.source === 'Expenses') {
+        this.yearSelectedForExpenses = obj.option
+        await this.$store.dispatch('loadExpenses', { year: this.yearSelectedForExpenses })
         this.setBarChartData()
       } else if (obj.source === 'Categories') {
+        this.yearSelectedForCategories = obj.option
         this.setPieChartData()
       } else if (obj.source === 'Types') {
+        this.yearSelectedForTypes = obj.option
         this.setDoughnutChartData()
       }
     },
     selectedMonth (obj) {
-      this.byMonth.selected = obj.option
       if (obj.source === 'Categories') {
+        this.monthSelectedForCategories = obj.option
         this.setPieChartData()
       } else if (obj.source === 'Types') {
+        this.monthSelectedForTypes = obj.option
         this.setDoughnutChartData()
       }
     },
@@ -170,7 +177,7 @@ export default {
         datasets: [
           {
             backgroundColor: this.categories.map(c => c.color),
-            data: this.categories.map(c => c.spent[this.byYear.selected][this.byMonth.selected])
+            data: this.categories.map(c => c.spent[this.yearSelectedForCategories][this.monthSelectedForCategories])
           }
         ]
       }
@@ -182,8 +189,8 @@ export default {
       this.tableCategory.data = this.categories.map(c => {
         const el = {
           category: c.category,
-          budget: (this.byMonth.selected === 'All') ? (c.budget * 12) : c.budget,
-          spent: c.spent[this.byYear.selected][this.byMonth.selected]
+          budget: (this.monthSelectedForCategories === 'All') ? (c.budget * 12) : c.budget,
+          spent: c.spent[this.yearSelectedForCategories][this.monthSelectedForCategories]
         }
         return el
       })
@@ -196,7 +203,7 @@ export default {
         datasets: [
           {
             backgroundColor: this.types.map(t => t.color),
-            data: this.types.map(t => t.spent[this.byYear.selected][this.byMonth.selected])
+            data: this.types.map(t => t.spent[this.yearSelectedForTypes][this.monthSelectedForTypes])
           }
         ]
       }
@@ -208,7 +215,7 @@ export default {
       this.tableTypes.data = this.types.map(t => {
         const el = {
           type: t.type,
-          spent: t.spent[this.byYear.selected][this.byMonth.selected]
+          spent: t.spent[this.yearSelectedForTypes][this.monthSelectedForTypes]
         }
         return el
       })

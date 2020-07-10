@@ -10,7 +10,11 @@ export default function () {
 
   server.get('/types', ({ db }, request) => db.types)
   server.get('/categories', ({ db }, request) => db.categories)
-  server.get('/expenses', ({ db }, request) => db.expenses)
+  server.post('/expenses', function (schema, request) {
+    const json = JSON.parse(request.requestBody)
+    const response = schema.db.expenses.findBy({ year: json.year })
+    return response
+  })
 
   server.db.loadData({ types: typesJSON })
   server.db.loadData({ categories: categoriesJSON })

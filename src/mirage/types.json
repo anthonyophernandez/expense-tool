@@ -5,6 +5,21 @@
     "description": "",
     "color": "rgba(66, 135, 245, 0.7)",
     "spent": {
+      "2019": {
+        "All": "3977.06",
+        "January": "1463.03",
+        "February": "279.72",
+        "March": "0.00",
+        "April": "0.00",
+        "May": "503.29",
+        "June": "0.00",
+        "July": "0.00",
+        "August": "0.00",
+        "September": "1041.88",
+        "October": "0.00",
+        "November": "689.13",
+        "December": "0.00"
+      },
       "2020": {
         "All": "3755.16",
         "January": "0.00",
@@ -28,6 +43,21 @@
     "description": "",
     "color": "rgba(64, 245, 242, 0.7)",
     "spent": {
+      "2019": {
+        "All": "6572.88",
+        "January": "793.31",
+        "February": "877.26",
+        "March": "1142.65",
+        "April": "934.30",
+        "May": "152.40",
+        "June": "23.65",
+        "July": "0.00",
+        "August": "0.00",
+        "September": "1228.60",
+        "October": "576.84",
+        "November": "0.00",
+        "December": "843.87"
+      },
       "2020": {
         "All": "3149.83",
         "January": "871.08",
@@ -51,6 +81,21 @@
     "description": "",
     "color": "rgba(61, 245, 92, 0.7)",
     "spent": {
+      "2019": {
+        "All": "3018.90",
+        "January": "0.00",
+        "February": "0.00",
+        "March": "0.00",
+        "April": "618.90",
+        "May": "0.00",
+        "June": "0.00",
+        "July": "0.00",
+        "August": "0.00",
+        "September": "0.00",
+        "October": "0.00",
+        "November": "0.00",
+        "December": "2400.00"
+      },
       "2020": {
         "All": "0.00",
         "January": "0.00",
@@ -74,6 +119,21 @@
     "description": "",
     "color": "rgba(245, 162, 61, 0.7)",
     "spent": {
+      "2019": {
+        "All": "5485.65",
+        "January": "0.00",
+        "February": "0.00",
+        "March": "99.79",
+        "April": "0.00",
+        "May": "0.00",
+        "June": "246.60",
+        "July": "2135.69",
+        "August": "1187.78",
+        "September": "0.00",
+        "October": "0.00",
+        "November": "333.06",
+        "December": "1482.73"
+      },
       "2020": {
         "All": "8328.85",
         "January": "271.19",

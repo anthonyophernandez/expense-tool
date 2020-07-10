@@ -33,9 +33,9 @@ export default new Vuex.Store({
       const categories = response.data
       commit('SET_CATEGORIES', categories)
     },
-    async loadExpenses ({ commit }) {
-      const response = await Api().get('/api/expenses')
-      const expenses = response.data
+    async loadExpenses ({ commit }, yearInfo) {
+      const response = await Api().post('/api/expenses', yearInfo)
+      const expenses = response.data.expenses
       commit('SET_EXPENSES', expenses)
     }
   },
