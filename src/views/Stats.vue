@@ -12,7 +12,7 @@
         </div>
       </div>
 
-      <OrganismTableAndChart :table="tableExpenses" chartType="BarChart" :chart="barChart"/>
+      <OrganismTableAndChart :table="tableExpenses" chartType="BarChart" :chart="barChart" :ini="(tableExpenses.data.length > 0) ? 1 : 0"/>
 
     </section>
 
@@ -26,7 +26,7 @@
         </div>
       </div>
 
-      <OrganismTableAndChart :table="tableCategory" chartType="PieChart" :chart="pieChart"/>
+      <OrganismTableAndChart :table="tableCategory" chartType="PieChart" :chart="pieChart" :ini="(tableCategory.data.length > 0) ? 1 : 0"/>
 
     </section>
 
@@ -40,7 +40,7 @@
         </div>
       </div>
 
-      <OrganismTableAndChart :table="tableTypes" chartType="DoughnutChart" :chart="doughnutChart"/>
+      <OrganismTableAndChart :table="tableTypes" chartType="DoughnutChart" :chart="doughnutChart" :ini="(tableTypes.data.length > 0) ? 1 : 0"/>
 
     </section>
 

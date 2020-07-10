@@ -1,7 +1,7 @@
 <template>
   <table class="table-fixed">
-    <OrganismTableHead :headers="table.headers" />
-    <OrganismTableBody :data="table.data" />
+    <OrganismTableHead :headers="headers" />
+    <OrganismTableBody :data="data" />
   </table>
 </template>
 
@@ -11,7 +11,7 @@ import OrganismTableBody from './OrganismTableBody.vue'
 
 export default {
   name: 'OrganismTable',
-  props: ['table'],
+  props: ['headers', 'data'],
   components: {
     OrganismTableHead,
     OrganismTableBody

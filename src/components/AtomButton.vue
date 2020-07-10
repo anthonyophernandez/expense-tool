@@ -1,11 +1,11 @@
 <template>
-  <button class="text-gray-500 h-8 w-10">{{ content }}</button>
+  <button @click="buttonFunction" class="text-gray-500 h-8 w-10">{{ content }}</button>
 </template>
 
 <script>
 export default {
   name: 'AtomButton',
-  props: ['content']
+  props: ['content', 'buttonFunction']
 }
 </script>
 
