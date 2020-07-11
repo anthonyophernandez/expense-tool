@@ -1,5 +1,5 @@
 <template>
-  <section class="w-full px-1 py-1 sm:px-16 sm:py-4">
+  <section v-if="isLoaded" class="w-full px-1 py-1 sm:px-16 sm:py-4">
 
     <OrganismStatsCards :cards="cards" />
 
@@ -12,7 +12,7 @@
         </div>
       </div>
 
-      <OrganismTableAndChart :table="tableExpenses" chartType="BarChart" :chart="barChart" :ini="(tableExpenses.data.length > 0) ? 1 : 0"/>
+      <OrganismTableAndChart :table="tableExpenses" chartType="BarChart" :chart="barChart" :initialPos="(tableExpenses.data.length > 0) ? 1 : 0"/>
 
     </section>
 
@@ -26,7 +26,7 @@
         </div>
       </div>
 
-      <OrganismTableAndChart :table="tableCategory" chartType="PieChart" :chart="pieChart" :ini="(tableCategory.data.length > 0) ? 1 : 0"/>
+      <OrganismTableAndChart :table="tableCategory" chartType="PieChart" :chart="pieChart" :initialPos="(tableCategory.data.length > 0) ? 1 : 0"/>
 
     </section>
 
@@ -40,7 +40,7 @@
         </div>
       </div>
 
-      <OrganismTableAndChart :table="tableTypes" chartType="DoughnutChart" :chart="doughnutChart" :ini="(tableTypes.data.length > 0) ? 1 : 0"/>
+      <OrganismTableAndChart :table="tableTypes" chartType="DoughnutChart" :chart="doughnutChart" :initialPos="(tableTypes.data.length > 0) ? 1 : 0"/>
 
     </section>
 
@@ -65,24 +65,7 @@ export default {
   },
   data: () => {
     return {
-      cards: [
-        {
-          title: 'Overall Spent',
-          text: '€ 34.288,34'
-        },
-        {
-          title: 'Most Spent By',
-          text: 'Debit Card'
-        },
-        {
-          title: 'Most Spent On',
-          text: 'Shopping'
-        },
-        {
-          title: 'Spent This Year',
-          text: '€ 15.233,85'
-        }
-      ],
+      cards: [],
       tableExpenses: {
         headers: ['Category', 'Type', 'Date', 'Value'],
         data: []
@@ -115,6 +98,7 @@ export default {
         label: 'Month',
         data: ['All', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
       },
+      isLoaded: false,
       yearSelectedForExpenses: '2019',
       yearSelectedForCategories: '2019',
       yearSelectedForTypes: '2019',
@@ -123,10 +107,12 @@ export default {
     }
   },
   async created () {
+    this.isLoaded = false
     await this.$store.dispatch('loadTypes')
     await this.$store.dispatch('loadCategories')
     await this.$store.dispatch('loadExpenses', { year: this.yearSelectedForExpenses })
 
+    this.setCardData()
     // BarChart INI
     this.setBarChartData()
     // BarChart END
@@ -138,6 +124,7 @@ export default {
     // DoughnutChart INI
     this.setDoughnutChartData()
     // DoughnutChart END
+    this.isLoaded = true
   },
   computed: {
     ...mapState({
@@ -255,6 +242,46 @@ export default {
         }
         return el
       })
+    },
+    setCardData () {
+      const currentYear = new Date().getFullYear().toString()
+      const spentThisYear = (this.byYear.data.includes(currentYear)) ? this.types.map(t => t.spent[currentYear].All).reduce((a, b) => parseFloat(a) + parseFloat(b), 0).toFixed(2) : '0.00'
+      const overallSpent = this.byYear.data
+        .map(year => this.types
+          .map(t => t.spent[year].All)
+          .reduce((a, b) => parseFloat(a) + parseFloat(b), 0))
+        .reduce((a, b) => parseFloat(a) + parseFloat(b), 0)
+        .toFixed(2)
+      const mostSpentBy = (this.byYear.data.includes(currentYear)) ? this.types
+        .map(t => {
+          return { name: t.type, spent: t.spent[currentYear].All }
+        })
+        .reduce((prev, current) => (prev.spent > current.spent) ? prev : current).name : 'N/A'
+      const mostSpentOn = (this.byYear.data.includes(currentYear)) ? this.categories
+        .map(c => {
+          return { name: c.category, spent: c.spent[currentYear].All }
+        })
+        .reduce((prev, current) => (prev.spent > current.spent) ? prev : current).name : 'N/A'
+
+      const cards = [
+        {
+          title: 'Overall Spent',
+          text: '$ ' + overallSpent
+        },
+        {
+          title: 'Most Spent By',
+          text: mostSpentBy
+        },
+        {
+          title: 'Most Spent On',
+          text: mostSpentOn
+        },
+        {
+          title: 'Spent This Year',
+          text: '$ ' + spentThisYear
+        }
+      ]
+      this.cards = cards
     }
   }
 }

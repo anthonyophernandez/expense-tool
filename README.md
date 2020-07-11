@@ -1,24 +1,19 @@
 # expense-tool
 
-## Project setup
+## Description
+
+A dashboard for an expenses tool.
+
+## Goals of this small project
+
+Learning the basics of Atomic Design using Tailwind CSS.
+
+* Smaller components
+* Components that can be re-used
+* Level of abstraction
+
+## To see the demo, run
 ```
 npm install
-```
-
-### Compiles and hot-reloads for development
-```
 npm run serve
 ```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).

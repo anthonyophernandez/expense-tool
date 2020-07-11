@@ -28,7 +28,7 @@ import DoughnutChart from './Chart/DoughnutChart.vue'
 
 export default {
   name: 'OrganismTableAndChart',
-  props: ['table', 'chartType', 'chart', 'ini'],
+  props: ['table', 'chartType', 'chart', 'initialPos'],
   components: {
     AtomText,
     AtomButton,
@@ -36,6 +36,11 @@ export default {
     BarChart,
     PieChart,
     DoughnutChart
+  },
+  data () {
+    return {
+      ini: this.initialPos
+    }
   },
   computed: {
     textNumOfData () {
